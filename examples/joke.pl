@@ -1,4 +1,14 @@
 {
+	package Local::Document::Example;
+
+	use 5.010;
+	use strict;
+	use XML::LibXML::Augment
+		-type   => 'Document',
+		-names  => [qw! {http://example.com/}* !];
+}
+
+{
 	package Local::Element::Bar;
 
 	use 5.010;
@@ -69,7 +79,7 @@ use XML::LibXML::Augment;
 my $doc = XML::LibXML::Augment::upgrade( XML::LibXML->load_xml(IO => \*DATA) );
 my $bar = $doc->findnodes('//*[@baz]')->shift;
 
-say ref $bar;
+say ref $doc;
 say "--";
 $bar->tellJoke;
 say "--";

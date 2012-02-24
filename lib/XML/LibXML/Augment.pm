@@ -78,8 +78,8 @@ sub import
 		Carp::croak(__PACKAGE__." does not support args: $args");
 	}
 	
-	Carp::croak("-type argument must be 'Element' or 'Attr'")
-		unless $type ~~ [qw/Element Attr/];
+	Carp::croak("-type argument must be 'Element', 'Attr' or 'Document'")
+		unless $type ~~ [qw/Attr Document Element/];
 	
 	foreach my $n (@$names)
 	{
@@ -95,9 +95,10 @@ sub import
 		{
 			$Delegates{$type}{$n} = $caller;
 		}
-		no strict 'refs';
-		push @{"$caller\::ISA"}, @$isa;
 	}
+
+	no strict 'refs';
+	push @{"$caller\::ISA"}, @$isa;
 	
 	$class;
 }
@@ -130,14 +131,23 @@ sub ideal_class_for_object
 		}->{$nodeType};
 	
 	# This is where we get smart
-	if ($ideal eq 'Element' or $ideal eq 'Attr')
+	if ($ideal eq 'Element' or $ideal eq 'Attr' or $ideal eq 'Document')
 	{
-		my $ns = $object->namespaceURI // '';
-		$ns = sprintf('{%s}', $ns) if length $ns;
-		my $clark1 = sprintf('%s%s', $ns, $object->localname);
-		my $clark2 = sprintf('%s%s', $ns, '*');
+		my ($ns, $local);
+		if ($ideal eq 'Document')
+		{
+			$ns = $object->documentElement->namespaceURI // '';
+			$ns = sprintf('{%s}', $ns) if length $ns;
+			$local = $object->documentElement->localname;
+		}
+		else
+		{
+			$ns = $object->namespaceURI // '';
+			$ns = sprintf('{%s}', $ns) if length $ns;
+			$local = $object->localname;
+		}
 		
-		foreach my $clark (($clark1, $clark2))
+		foreach my $clark (map { sprintf('%s%s', $ns, $_) } $local, '*')
 		{
 			if (my $i = $Delegates{$ideal}{$clark})
 			{
@@ -387,6 +397,13 @@ Note that $element is actually upgraded in-place.
 
 Calculates the class that C<rebless> would bless the object into, but doesn't
 actually do the reblessing.
+
+=head2 C<< make_class(@superclasses) >>
+
+Constructs a new class that is a subclass of the given classes. Call
+this as a class method. Returns the class name. This is a method used
+internally by XML::LibXML::Augment, documented in case anybody else
+wants to use it.
 
 =head2 C<< BLESS >>
 
