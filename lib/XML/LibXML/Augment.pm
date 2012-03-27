@@ -27,7 +27,7 @@ BEGIN
 			push @{"XML::LibXML::Augment::${class}::ISA"},
 				"XML::LibXML::Augment::Text";
 		}
-		elsif ($class ne 'Node')
+		elsif ($class ne 'Node' and $class ne 'NodeList')
 		{
 			# Everything inherits from Node
 			push @{"XML::LibXML::Augment::${class}::ISA"},
