@@ -17,7 +17,7 @@ BEGIN
 	no strict 'refs';
 	
 	my @_CLASSES = qw/Node Document DocumentFragment Element Attr
-		Text CDATASection Comment Dtd PI/;
+		Text CDATASection Comment Dtd PI NodeList/;
 	
 	foreach my $class (@_CLASSES)
 	{
@@ -116,9 +116,11 @@ sub ideal_class_for_object
 	my ($me, $object) = @_;
 	return unless ref $object && blessed $object;
 	my $nodeType = $object->can('nodeType') && $object->nodeType;
+	$nodeType = -1 if $object->isa('XML::LibXML::NodeList');
 	return unless $nodeType;
 	
 	my $ideal = {
+		(-1)                      => 'NodeList',
 		(XML_ELEMENT_NODE)        => 'Element',
 		(XML_ATTRIBUTE_NODE)      => 'Attr',
 		(XML_TEXT_NODE)           => 'Text',
@@ -230,7 +232,7 @@ sub upgrade
 		if (blessed($_[$i]) and $_[$i]->isa('XML::LibXML::NodeList'))
 		{
 			my $me = __PACKAGE__->can('upgrade');
-			$_[$i] = $_[$i]->map($me);
+			$_[$i] = $_[$i]->foreach($me);
 			next;
 		}
 		my $ideal = __PACKAGE__->ideal_class_for_object($_[$i]);
