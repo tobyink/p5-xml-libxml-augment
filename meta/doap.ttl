@@ -10,10 +10,11 @@
 	a               :Project ;
 	:programming-language "Perl" ;
 	:name           "XML-LibXML-Augment" ;
-	:shortdesc      "extend XML::LibXML::{Attr,Element} on a per-namespace/element basis" ;
+	:shortdesc      "extend XML::LibXML::{Attr,Element,Document} on a per-namespace/element basis" ;
 	:homepage       <https://metacpan.org/release/XML-LibXML-Augment> ;
 	:download-page  <https://metacpan.org/release/XML-LibXML-Augment> ;
 	:bug-database   <http://rt.cpan.org/Dist/Display.html?Queue=XML-LibXML-Augment> ;
+	:respository    [ a :HgRepository; :browse <https://bitbucket.org/tobyink/p5-xml-libxml-augment> ];
 	:created        "2012-02-22"^^xsd:date ;
 	:license        <http://dev.perl.org/licenses/> ;
 	:developer      [ a foaf:Person ; foaf:name "Toby Inkster" ; foaf:mbox <mailto:tobyink@cpan.org> ] .

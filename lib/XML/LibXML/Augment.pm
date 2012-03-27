@@ -6,7 +6,7 @@ use Carp qw//;
 use Class::Inspector;
 use Module::Runtime qw/module_notional_filename/;
 use Scalar::Util qw/blessed/;
-use XML::LibXML 1.91 qw/:libxml/;
+use XML::LibXML 1.95 qw/:libxml/;
 
 my %Delegates;
 
@@ -16,6 +16,7 @@ BEGIN
 	$XML::LibXML::Augment::VERSION   = '0.001';
 	
 	no strict 'refs';
+	no warnings 'once';
 	
 	my @_CLASSES = qw/Node Document DocumentFragment Element Attr
 		Text CDATASection Comment Dtd PI NodeList/;

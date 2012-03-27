@@ -6,8 +6,8 @@
 	:perl_version_from _:main;
 	:version_from _:main;
 	:readme_from _:main;
-	:test_requires "Test::More 0.61", "Test::Warn", "Test::Exception";
-	:requires "Carp", "Class::Inspector", "Scalar::Util", "strict", "XML::LibXML 1.91".
+	:test_requires "Test::More 0.61" ;
+	:requires "Carp", "Class::Inspector", "Module::Runtime", "Scalar::Util", "strict", "warnings", "XML::LibXML 1.95".
 
 _:main
 	<http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileName>
