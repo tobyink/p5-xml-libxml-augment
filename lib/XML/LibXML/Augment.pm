@@ -4,6 +4,7 @@ use 5.010;
 use strict;
 use Carp qw//;
 use Class::Inspector;
+use Module::Runtime qw/module_notional_filename/;
 use Scalar::Util qw/blessed/;
 use XML::LibXML 1.91 qw/:libxml/;
 
@@ -37,7 +38,17 @@ BEGIN
 		# Inherit from XML::LibXML counterpart
 		push @{"XML::LibXML::Augment::${class}::ISA"},
 			"XML::LibXML::${class}";
-				
+
+		# $AUTHORITY and $VERSION
+		${"XML::LibXML::Augment::${class}::AUTHORITY"} = 
+			$XML::LibXML::Augment::AUTHORITY;
+		${"XML::LibXML::Augment::${class}::VERSION"} = 
+			$XML::LibXML::Augment::VERSION;
+		
+		# Trick "use".
+		$INC{ module_notional_filename("XML::LibXML::Augment::${class}") }
+			= __FILE__;
+
 		# Create &rebless.
 		my $our_rebless = sprintf('%s::%s::%s', __PACKAGE__, $class, 'rebless');
 		*$our_rebless = sub
@@ -247,7 +258,7 @@ __END__
 
 =head1 NAME
 
-XML::LibXML::Augment - extend XML::LibXML::{Attr,Element} on a per-namespace/element basis
+XML::LibXML::Augment - extend XML::LibXML::{Attr,Element,Document} on a per-namespace/element basis
 
 =head1 SYNOPSIS
 
@@ -285,10 +296,10 @@ XML::LibXML::Augment - extend XML::LibXML::{Attr,Element} on a per-namespace/ele
 
 =head1 DESCRIPTION
 
-XML::LibXML is super-awesome. I don't know about you, but sometimes I
-wish it had some domain-specific knowledge. For example, if I have an
-XML::LibXML::Element which represents an HTML C<< <form> >> element,
-why can't it have a C<submit> method?
+XML::LibXML is super-awesome. However, I don't know about you, but
+sometimes I wish it had some domain-specific knowledge. For example,
+if I have an XML::LibXML::Element which represents an HTML C<< <form> >>
+element, why can't it have a C<submit> method?
 
 OK, so I can subclass XML::LibXML::Element, but then I call C<childNodes>
 on my subclass, and get back plain, non-subclassed objects, and I'm
@@ -327,11 +338,13 @@ to cover, say, HTML C<< <a> >>, C<< <link> >> and C<< <area> >> elements.
 
 =head3 C<< -type => $type >>
 
-C<$type> can be either 'Element' or 'Attr', but defaults to 'Element'.
-This indicates what sort of thing you're subclassing. Only elements
-and attributes are supported.
+C<$type> can be either 'Element', 'Attr' or 'Document', but defaults to
+'Element'. This indicates what sort of thing you're subclassing. Only
+elements, attributes and documents are supported. (Document subclassing
+is based on the namespace and localname of its root element.)
 
-You cannot subclass elements B<and> attributes in the same package.
+Elements, attributes and documents are pairwise disjoint classes, so you
+cannot (for example) subclass elements B<and> attributes in the same package.
 
 =head3 C<< -isa => \@packages >>
 
@@ -387,7 +400,7 @@ are reblessed.
 =head2 C<< rebless($thing) >>
 
 This is basically a single-argument version C<upgrade> but designed to be
-called as a class method, and doesn't handle nodelists.
+called as a class method, and doesn't recurse into nodelists.
 
   my $upgraded = XML::LibXML::Augment->rebless($element);
 
@@ -487,7 +500,7 @@ go write some Java and quit complaining.
 =head1 BUGS
 
 Please report any bugs to
-L<http://rt.cpan.org/Dist/Display.html?Queue=XML-LibXML-PrettyPrint>.
+L<http://rt.cpan.org/Dist/Display.html?Queue=XML-LibXML-Augment>.
 
 =head1 SEE ALSO
 
