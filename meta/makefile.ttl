@@ -1,14 +1,12 @@
 # This file provides instructions for packaging.
 
-@prefix : <http://purl.org/NET/cpan-uri/terms#> .
+@prefix : <http://ontologi.es/doap-changeset#> .
 
 <http://purl.org/NET/cpan-uri/dist/XML-LibXML-Augment/project>
-	:perl_version_from _:main;
-	:version_from _:main;
-	:readme_from _:main;
-	:test_requires "Test::More 0.61" ;
-	:requires "Carp", "Class::Inspector", "Module::Runtime", "Scalar::Util", "strict", "warnings", "XML::LibXML 1.95", "match::simple".
+	:test-requirement    [ :on "Test::More 0.61"^^:CpanId ];
+	:runtime-requirement [ :on "Perl 5.008"^^:CpanId ];
+	:runtime-requirement [ :on "Class::Inspector"^^:CpanId ];
+	:runtime-requirement [ :on "Module::Runtime"^^:CpanId ];
+	:runtime-requirement [ :on "XML::LibXML 1.95"^^:CpanId ];
+	:runtime-requirement [ :on "match::simple"^^:CpanId ].
 
-_:main
-	<http://www.semanticdesktop.org/ontologies/2007/03/22/nfo#fileName>
-		"lib/XML/LibXML/Augment.pm".

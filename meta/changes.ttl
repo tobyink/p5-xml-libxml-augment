@@ -7,11 +7,23 @@
 @prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
 
-dist:project :release dist:v_0-001 .
+dist:project :release dist:v_0-001.
 dist:v_0-001
-	a               :Version ;
-	dc:issued       "2012-03-27"^^xsd:date ;
-	:revision       "0.001"^^xsd:string ;
-	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/XML-LibXML-Augment-0.001.tar.gz> ;
-	rdfs:label      "Initial release" .
+	a               :Version;
+	dc:issued       "2012-03-27"^^xsd:date;
+	:revision       "0.001"^^xsd:string;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/XML-LibXML-Augment-0.001.tar.gz>;
+	rdfs:label      "Initial release".
 
+dist:project :release dist:v_0-002.
+dist:v_0-002
+	a               :Version;
+	dc:issued       "2014-01-11"^^xsd:date;
+	:revision       "0.002"^^xsd:string;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/XML-LibXML-Augment-0.002.tar.gz>;
+	dcs:changeset [
+		dcs:item [
+			a dcs:Update;
+			rdfs:label "Use match::simple instead of smart match operator.";
+		];
+	].
