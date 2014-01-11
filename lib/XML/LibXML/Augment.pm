@@ -262,6 +262,10 @@ sub upgrade
 __PACKAGE__
 __END__
 
+=pod
+
+=encoding utf-8
+
 =head1 NAME
 
 XML::LibXML::Augment - extend XML::LibXML::{Attr,Element,Document} on a per-namespace/element basis
@@ -520,7 +524,7 @@ Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
 
 =head1 COPYRIGHT AND LICENCE
 
-This software is copyright (c) 2012 by Toby Inkster.
+This software is copyright (c) 2012, 2014 by Toby Inkster.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
