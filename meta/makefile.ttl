@@ -4,7 +4,7 @@
 
 <http://purl.org/NET/cpan-uri/dist/XML-LibXML-Augment/project>
 	:test-requirement    [ :on "Test::More 0.61"^^:CpanId ];
-	:runtime-requirement [ :on "Perl 5.008"^^:CpanId ];
+	:runtime-requirement [ :on "perl 5.008"^^:CpanId ];
 	:runtime-requirement [ :on "Class::Inspector"^^:CpanId ];
 	:runtime-requirement [ :on "Module::Runtime"^^:CpanId ];
 	:runtime-requirement [ :on "XML::LibXML 1.95"^^:CpanId ];
