@@ -2,8 +2,11 @@ package XML::LibXML::Augment;
 
 use 5.010;
 use strict;
+use warnings;
+
 use Carp qw//;
 use Class::Inspector;
+use match::simple qw/match/;
 use Module::Runtime qw/module_notional_filename/;
 use Scalar::Util qw/blessed/;
 use XML::LibXML 1.95 qw/:libxml/;
@@ -18,12 +21,14 @@ BEGIN
 	no strict 'refs';
 	no warnings 'once';
 	
-	my @_CLASSES = qw/Node Document DocumentFragment Element Attr
-		Text CDATASection Comment Dtd PI NodeList/;
+	my @_CLASSES = qw/
+		Node Document DocumentFragment Element Attr
+		Text CDATASection Comment Dtd PI NodeList
+	/;
 	
 	foreach my $class (@_CLASSES)
 	{
-		if ($class ~~ [qw/Comment CDATASection/])
+		if (match $class, [qw/Comment CDATASection/])
 		{
 			# Comment and CDATASection inherit from Text
 			push @{"XML::LibXML::Augment::${class}::ISA"},
@@ -91,7 +96,7 @@ sub import
 	}
 	
 	Carp::croak("-type argument must be 'Element', 'Attr' or 'Document'")
-		unless $type ~~ [qw/Attr Document Element/];
+		unless match $type, [qw/Attr Document Element/];
 	
 	foreach my $n (@$names)
 	{
@@ -268,6 +273,7 @@ XML::LibXML::Augment - extend XML::LibXML::{Attr,Element,Document} on a per-name
    
    use 5.010;
    use strict;
+   use warnings;
    use XML::LibXML::Augment -names => ['{http://example.com/}bar'];
    
    sub tellJoke
@@ -283,6 +289,7 @@ XML::LibXML::Augment - extend XML::LibXML::{Attr,Element,Document} on a per-name
    
    use 5.010;
    use strict;
+   use warnings;
    use XML::LibXML::Augment;
    
    my $doc = XML::LibXML->load_xml(string => <<'XML');
