@@ -26,4 +26,16 @@ dist:v_0-002
 			a dcs:Update;
 			rdfs:label "Use match::simple instead of smart match operator.";
 		];
+		dcs:item [
+			a dcs:Documentation, dcs:Tests;
+			rdfs:label "Document the test suite.";
+		];
+		dcs:item [
+			a dcs:Documentation;
+			rdfs:label "Copyright 2014.";
+		];
+		dcs:item [
+			a dcs:Packaging;
+			rdfs:label "use Dist::Inkt.";
+		];
 	].
