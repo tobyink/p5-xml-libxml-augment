@@ -38,4 +38,8 @@ dist:v_0-002
 			a dcs:Packaging;
 			rdfs:label "use Dist::Inkt.";
 		];
+		dcs:item [
+			a dcs:Packaging;
+			rdfs:label "Help the PAUSE indexer properly find the internal packages.";
+		];
 	].
