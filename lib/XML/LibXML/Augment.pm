@@ -25,7 +25,24 @@ BEGIN
 		Node Document DocumentFragment Element Attr
 		Text CDATASection Comment Dtd PI NodeList
 	/;
-	
+
+	# It would be nice to not need to include this block,
+	# but it's currently necessary for Dist::Inkt and the
+	# PAUSE indexer...
+	{
+		package XML::LibXML::Augment::Node;
+		package XML::LibXML::Augment::Document;
+		package XML::LibXML::Augment::DocumentFragment;
+		package XML::LibXML::Augment::Element;
+		package XML::LibXML::Augment::Attr;
+		package XML::LibXML::Augment::Text;
+		package XML::LibXML::Augment::CDATASection;
+		package XML::LibXML::Augment::Comment;
+		package XML::LibXML::Augment::Dtd;
+		package XML::LibXML::Augment::PI;
+		package XML::LibXML::Augment::NodeList;
+	}
+
 	foreach my $class (@_CLASSES)
 	{
 		if (match $class, [qw/Comment CDATASection/])
@@ -147,7 +164,7 @@ sub ideal_class_for_object
 		(XML_DOCUMENT_NODE)       => 'Document',
 		(XML_DOCUMENT_FRAG_NODE)  => 'DocumentFragment',
 		(XML_DTD_NODE)            => 'Dtd',
-		}->{$nodeType};
+	}->{$nodeType};
 	
 	# This is where we get smart
 	if ($ideal eq 'Element' or $ideal eq 'Attr' or $ideal eq 'Document')
