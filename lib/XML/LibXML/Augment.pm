@@ -16,7 +16,7 @@ my %Delegates;
 BEGIN
 {
 	$XML::LibXML::Augment::AUTHORITY = 'cpan:TOBYINK';
-	$XML::LibXML::Augment::VERSION   = '0.003';
+	$XML::LibXML::Augment::VERSION   = '0.004';
 	
 	no strict 'refs';
 	no warnings 'once';

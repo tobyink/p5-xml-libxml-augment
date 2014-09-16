@@ -54,6 +54,19 @@ dist:v_0-003
 	dcs:changeset [
 		dcs:item [
 			a dcs:Packaging, dcs:Bugfix;
-			rdfs:label "Fix deps";
+			rdfs:label "Fix deps.";
+		];
+	].
+
+dist:project :release dist:v_0-004.
+dist:v_0-004
+	a               :Version;
+	dc:issued       "2014-09-16"^^xsd:date;
+	:revision       "0.004"^^xsd:string;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/XML-LibXML-Augment-0.004.tar.gz>;
+	dcs:changeset [
+		dcs:item [
+			a dcs:Packaging, dcs:Bugfix;
+			rdfs:label "Fix repo link.";
 		];
 	].
