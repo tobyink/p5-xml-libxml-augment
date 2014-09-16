@@ -63,9 +63,9 @@ BEGIN
 			"XML::LibXML::${class}";
 
 		# $AUTHORITY and $VERSION
-		${"XML::LibXML::Augment::${class}::AUTHORITY"} = 
+		${"XML::LibXML::Augment::${class}::AUTHORITY"} =
 			$XML::LibXML::Augment::AUTHORITY;
-		${"XML::LibXML::Augment::${class}::VERSION"} = 
+		${"XML::LibXML::Augment::${class}::VERSION"} =
 			$XML::LibXML::Augment::VERSION;
 		
 		# Trick "use".
